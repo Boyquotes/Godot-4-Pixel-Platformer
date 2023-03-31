@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://ufprdes8io4w"]
+
+[node name="Object" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://j0k5bkbkv0iy"]
+
+[ext_resource type="PackedScene" uid="uid://rhnjqydingdd" path="res://actors/actor.tscn" id="1_n881d"]
+[ext_resource type="Script" path="res://actors/player.gd" id="2_2543v"]
+[ext_resource type="Texture2D" uid="uid://ckopn158woo1g" path="res://common/tilemaps/characters_packed.png" id="2_phcah"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u0npv"]
+size = Vector2(18, 18)
+
+[sub_resource type="Animation" id="Animation_wcjo3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_weisq"]
+resource_name = "aerial"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ahjp4"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ivena"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1biax"]
+_data = {
+"RESET": SubResource("Animation_wcjo3"),
+"aerial": SubResource("Animation_weisq"),
+"idle": SubResource("Animation_ahjp4"),
+"walk": SubResource("Animation_ivena")
+}
+
+[node name="Player" instance=ExtResource("1_n881d")]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("2_2543v")
+acceleration = 0.1
+ground_friction = 0.2
+air_friction = 0.15
+max_speed = 200.0
+jump_velocity = 300.0
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -12)
+texture = ExtResource("2_phcah")
+flip_h = true
+hframes = 9
+vframes = 3
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_u0npv")
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_1biax")
+}
+
+[node name="Camera2D" type="Camera2D" parent="." index="3"]
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+position_smoothing_enabled = true
