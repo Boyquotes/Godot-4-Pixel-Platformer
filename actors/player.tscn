@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://j0k5bkbkv0iy"]
+[gd_scene load_steps=11 format=3 uid="uid://j0k5bkbkv0iy"]
 
 [ext_resource type="PackedScene" uid="uid://rhnjqydingdd" path="res://actors/actor.tscn" id="1_n881d"]
 [ext_resource type="Script" path="res://actors/player.gd" id="2_2543v"]
@@ -79,6 +79,9 @@ _data = {
 "walk": SubResource("Animation_ivena")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w4e80"]
+size = Vector2(18, 4)
+
 [node name="Player" instance=ExtResource("1_n881d")]
 collision_layer = 2
 collision_mask = 5
@@ -110,3 +113,12 @@ limit_left = 0
 limit_top = 0
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="HitArea" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" index="0"]
+shape = SubResource("RectangleShape2D_w4e80")
+
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

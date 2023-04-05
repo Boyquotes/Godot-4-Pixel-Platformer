@@ -7,6 +7,7 @@ extends Actor
 
 var can_double_jump := true
 
+
 func _physics_process(delta: float) -> void:
 	# Status
 	if not is_on_floor():
@@ -53,3 +54,13 @@ func _physics_process(delta: float) -> void:
 		$AnimationPlayer.play("aerial")
 
 	move_and_slide()
+
+
+func die() -> void:
+	get_tree().reload_current_scene()
+
+
+func _on_hit_area_body_entered(body: Node2D) -> void:
+	if body.has_method("die"):
+		body.die()
+	velocity.y = -abs(jump_velocity)

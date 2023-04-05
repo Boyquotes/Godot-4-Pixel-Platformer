@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5glwq73rowsm"]
+
+[ext_resource type="PackedScene" uid="uid://rhnjqydingdd" path="res://actors/actor.tscn" id="1_66a0h"]
+[ext_resource type="Texture2D" uid="uid://ckopn158woo1g" path="res://common/tilemaps/characters_packed.png" id="2_3sdmq"]
+[ext_resource type="Script" path="res://actors/enemy.gd" id="2_ldpxf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n68qg"]
+size = Vector2(16, 13)
+
+[sub_resource type="Animation" id="Animation_cub3r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_c8qvi"]
+resource_name = "moving"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [18, 19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_prg6j"]
+_data = {
+"RESET": SubResource("Animation_cub3r"),
+"moving": SubResource("Animation_c8qvi")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl2dq"]
+size = Vector2(20, 13)
+
+[node name="Enemy" instance=ExtResource("1_66a0h")]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("2_ldpxf")
+is_going_left = true
+max_speed = 80.0
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -12)
+texture = ExtResource("2_3sdmq")
+hframes = 9
+vframes = 3
+frame = 18
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_n68qg")
+
+[node name="AnimationPlayer" parent="." index="2"]
+autoplay = "moving"
+libraries = {
+"": SubResource("AnimationLibrary_prg6j")
+}
+
+[node name="HitArea" type="Area2D" parent="." index="3"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea" index="0"]
+position = Vector2(0, -6.5)
+shape = SubResource("RectangleShape2D_xl2dq")
+
+[connection signal="body_entered" from="HitArea" to="." method="_on_hit_area_body_entered"]

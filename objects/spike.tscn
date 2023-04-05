@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnukebailbkn6"]
+
+[ext_resource type="PackedScene" uid="uid://dbkady4rmucrg" path="res://objects/object.tscn" id="1_0rj17"]
+[ext_resource type="Texture2D" uid="uid://b88iy1sgl1i7w" path="res://common/tilemaps/tiles_packed.png" id="2_gsb86"]
+[ext_resource type="Script" path="res://objects/spike.gd" id="2_lovps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d1523"]
+size = Vector2(18, 9)
+
+[node name="Spike" instance=ExtResource("1_0rj17")]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource("2_lovps")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -9)
+texture = ExtResource("2_gsb86")
+region_enabled = true
+region_rect = Rect2(144, 54, 18, 18)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_d1523")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dvs303jynq8vy" path="res://common/tilemaps/background_packed.png" id="1_gygtp"]
 [ext_resource type="Texture2D" uid="uid://b88iy1sgl1i7w" path="res://common/tilemaps/tiles_packed.png" id="1_qd1uv"]
 [ext_resource type="PackedScene" uid="uid://j0k5bkbkv0iy" path="res://actors/player.tscn" id="2_0sf6y"]
-[ext_resource type="PackedScene" uid="uid://73er7m1qay2r" path="res://objects/coin.tscn" id="4_vynw0"]
+[ext_resource type="PackedScene" uid="uid://c5glwq73rowsm" path="res://actors/enemy.tscn" id="4_147yv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k4f03"]
 texture = ExtResource("1_gygtp")
@@ -256,7 +256,7 @@ position = Vector2(288, 162)
 limit_right = 1152
 limit_bottom = 324
 
-[node name="Coin" parent="." instance=ExtResource("4_vynw0")]
-position = Vector2(432, 288)
+[node name="Enemy" parent="." instance=ExtResource("4_147yv")]
+position = Vector2(216, 288)
 
 [editable path="Player"]

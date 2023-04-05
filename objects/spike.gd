@@ -2,4 +2,5 @@ extends Area2D
 
 
 func _on_body_entered(body: Node2D) -> void:
-	$AnimationPlayer.play("pick_up")
+	if body.has_method("die"):
+		body.die()
